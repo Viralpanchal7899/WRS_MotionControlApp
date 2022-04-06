@@ -1,0 +1,227 @@
+package com.example.motioncontrolcalibration;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.TextViewCompat;
+import Jama.*;
+import Jama.EigenvalueDecomposition;
+import Jama.Matrix;
+import android.content.res.AssetManager;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+    public void read_data(View v) {
+        try {
+            AssetManager am = getAssets();
+            InputStream is = am.open("data.xls");
+            Workbook wb = Workbook.getWorkbook(is);
+            Sheet s = wb.getSheet(0);
+            int row = 3505;
+            //int row = s.getRows();
+            //long wx = s.getRows(:,x_angular_vel);
+            //long wy = s.getRows(:,y_angular_vel);
+            //long wz = s.getRows(:,z_angular_vel);
+            int col = 9;
+
+            ArrayList<Double> ang_vel_x;
+            ArrayList<Double> ang_vel_y;
+            ArrayList<Double> ang_vel_z;
+
+            ang_vel_x = new ArrayList<Double>();
+            ang_vel_y = new ArrayList<Double>();
+            ang_vel_z = new ArrayList<Double>();
+
+            String wx_read = "";
+            String wy_read = "";
+            String wz_read = "";
+
+            for (int i = 11; i < row; i++) {
+                Cell x = s.getCell(6, i);
+                wx_read = x.getContents();
+                ang_vel_x.add(Double.parseDouble(wx_read));
+
+                Cell y = s.getCell(7, i);
+                wy_read = y.getContents();
+                ang_vel_y.add(Double.parseDouble(wy_read));
+
+                Cell z = s.getCell(8, i);
+                wz_read = z.getContents();
+                ang_vel_z.add(Double.parseDouble(wz_read));
+            }
+
+            double sum_x = 0;
+            double sum_y = 0;
+            double sum_z = 0;
+
+            /// Getting average for X Y Z
+            for (int m = 0; m < ang_vel_x.size(); m++) {
+                sum_x = sum_x + ang_vel_x.get(m);
+                sum_y = sum_y + ang_vel_y.get(m);
+                sum_z = sum_z + ang_vel_z.get(m);
+            }
+            double mean_wx = sum_x / ang_vel_x.size();
+            double mean_wy = sum_y / ang_vel_y.size();
+            double mean_wz = sum_z / ang_vel_z.size();
+
+            System.out.println("Ave_x:" + mean_wx);
+            System.out.println("Ave_y:" + mean_wy);
+            System.out.println("Ave_z:" + mean_wz);
+            ///////////////////////////////////////////////////////////////////////////////////////
+            /// Getting var for wx wy wz
+            ArrayList<Double> wx_num_diff;
+            ArrayList<Double> wy_num_diff;
+            ArrayList<Double> wz_num_diff;
+
+            wx_num_diff = new ArrayList<Double>();
+            wy_num_diff = new ArrayList<Double>();
+            wz_num_diff = new ArrayList<Double>();
+
+            double wx_diff = 0;
+            double wy_diff = 0;
+            double wz_diff = 0;
+
+            for (int i = 0; i < ang_vel_x.size(); i++) {
+                wx_diff = Math.pow(ang_vel_x.get(i) - (mean_wx), 2);
+                wx_num_diff.add(wx_diff);
+                wy_diff = Math.pow(ang_vel_y.get(i) - (mean_wy), 2);
+                wy_num_diff.add(wy_diff);
+                wz_diff = Math.pow(ang_vel_z.get(i) - (mean_wz), 2);
+                wz_num_diff.add(wz_diff);
+            }
+
+            double sum_wx_num_diff = 0;
+            double sum_wy_num_diff = 0;
+            double sum_wz_num_diff = 0;
+
+            for (int i = 0; i < ang_vel_x.size(); i++) {
+                sum_wx_num_diff = sum_wx_num_diff + wx_num_diff.get(i);
+                sum_wy_num_diff = sum_wy_num_diff + wy_num_diff.get(i);
+                sum_wz_num_diff = sum_wz_num_diff + wz_num_diff.get(i);
+            }
+            double var_wx = sum_wx_num_diff / wx_num_diff.size();
+            double var_wy = sum_wy_num_diff / wy_num_diff.size();
+            double var_wz = sum_wz_num_diff / wz_num_diff.size();
+
+            System.out.println("Var_wx:" + var_wx);
+            System.out.println("Var_wy:" + var_wy);
+            System.out.println("Var_wz:" + var_wz);
+            /////////////////////////////////////////////////////////////////////////////////////////
+
+            /// Getting the cov for (wx,wy) (wy,wz) (wx,wz)
+            ArrayList<Double> wx_wy_num_diff;
+            ArrayList<Double> wy_wz_num_diff;
+            ArrayList<Double> wx_wz_num_diff;
+
+            wx_wy_num_diff = new ArrayList<>();
+            wy_wz_num_diff = new ArrayList<>();
+            wx_wz_num_diff = new ArrayList<>();
+
+            double wx_wy_diff = 0;
+            double wy_wz_diff = 0;
+            double wx_wz_diff = 0;
+
+            for (int i = 0; i < ang_vel_x.size(); i++) {
+                wx_wy_diff = (ang_vel_x.get(i) - (mean_wx)) * (ang_vel_y.get(i) - (mean_wy));
+                wx_wy_num_diff.add(wx_wy_diff);
+                wy_wz_diff = (ang_vel_y.get(i) - (mean_wy)) * (ang_vel_z.get(i) - (mean_wz));
+                wy_wz_num_diff.add(wy_wz_diff);
+                wx_wz_diff = (ang_vel_x.get(i) - (mean_wx)) * (ang_vel_z.get(i) - (mean_wz));
+                wx_wz_num_diff.add(wx_wz_diff);
+            }
+
+            double sum_wx_wy_num_diff = 0;
+            double sum_wy_wz_num_diff = 0;
+            double sum_wx_wz_num_diff = 0;
+
+            for (int i = 0; i < wx_wy_num_diff.size(); i++) {
+                sum_wx_wy_num_diff = sum_wx_wy_num_diff + wx_wy_num_diff.get(i);
+                sum_wy_wz_num_diff = sum_wy_wz_num_diff + wy_wz_num_diff.get(i);
+                sum_wx_wz_num_diff = sum_wx_wz_num_diff + wx_wz_num_diff.get(i);
+            }
+
+            double cov_wx_wy = sum_wx_wy_num_diff / wx_wy_num_diff.size();
+            double cov_wy_wz = sum_wy_wz_num_diff / wy_wz_num_diff.size();
+            double cov_wx_wz = sum_wx_wz_num_diff / wx_wz_num_diff.size();
+
+            System.out.println("Cov_wx_wy:" + cov_wx_wy);
+            System.out.println("Cov_wy_wz:" + cov_wy_wz);
+            System.out.println("Cov_wx_wz:" + cov_wx_wz);
+            ///////////////////////////////////////////////////////////////////////////////////////
+            /// Getting the 2D "C" Matrix
+
+            double[][] C_matrix = {{var_wx, cov_wx_wy, cov_wx_wz}, {cov_wx_wy, var_wy, cov_wy_wz}, {cov_wx_wz, cov_wy_wz, var_wz}};
+            System.out.println("C_matrix:");
+            for (int i = 0; i < C_matrix.length; i++) {
+                for (int j = 0; j < C_matrix.length; j++) {
+                    System.out.print(C_matrix[i][j] + "   ");
+                }
+                System.out.print("\n");
+            }
+            ///////////////////////////////////////////////////////////////////////////////////////
+//            Matrix Eig_c = new Matrix(C_matrix);
+//            EigenVectors(Eig_c);
+
+
+            String c_matrix = "[ " + var_wx + " " + cov_wx_wy + " " + cov_wx_wz +  "\n" + cov_wx_wy + " " + var_wy + " " + cov_wy_wz + "\n" + cov_wx_wz + " " + cov_wy_wz + " " + var_wz + " ]";
+            //display1(wx_read);
+            display2(c_matrix);
+            //display3(wz_read);
+
+        } catch (Exception e){
+
+        }
+    }
+
+//    public void EigenVectors(Matrix InputMatrix)
+//    {
+//        EigenvalueDecomposition somematrix = new EigenvalueDecomposition(InputMatrix);
+//        Matrix S = somematrix.getV();
+//        System.out.println("V = " + S);
+//        // Compute Evals and e-vecs
+//        // Print out
+//    }
+//    public double [][] EigenVectors(Matrix m) {
+//        EigenvalueDecomposition decomposition = m.eig();
+//        Matrix eigenVectorsMatrix = decomposition.getV();
+//        double[][] eigenvectors = eigenVectorsMatrix.getArray();
+//        System.out.print("EigenVector:" + eigenvectors);
+//        return eigenvectors;
+//    }
+
+    public void display1(String value) //reading the excel file and displaying
+    {
+        TextView x= (TextView) findViewById(R.id.textView_angular_velocity_x);
+        x.setText(value);
+    }
+    public void display2(String value) //reading the excel file and displaying
+    {
+        TextView y= (TextView) findViewById(R.id.textview_angular_velocity_y);
+        y.setText(value);
+    }
+    public void display3(String value) //reading the excel file and displaying
+    {
+        TextView z= (TextView) findViewById(R.id.textView_angular_velocity_z);
+        z.setText(value);
+    }
+    //public void covariance(){
+      //  long wx =
+    //}
+
+
+
+}

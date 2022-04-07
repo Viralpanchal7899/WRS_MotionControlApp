@@ -51,11 +51,11 @@ public class pelvis_calibration extends AppCompatActivity {
         z_axis_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    pelvis_calibration_z_dialog pelvis_calibration_z_dialog = new pelvis_calibration_z_dialog();
-                    pelvis_calibration_z_dialog.show(getSupportFragmentManager(),"pelvis_begin_dialog");
-                    action_textview = (TextView) findViewById(R.id.action_textview);
-                    action_textview.setText(" Press Start to initiate ");
-                    count = 1;
+                pelvis_calibration_z_dialog pelvis_calibration_z_dialog = new pelvis_calibration_z_dialog();
+                pelvis_calibration_z_dialog.show(getSupportFragmentManager(), "pelvis_begin_dialog");
+                action_textview = (TextView) findViewById(R.id.action_textview);
+                action_textview.setText(" Press Start to initiate ");
+                count = 1;
             }
         });
 
@@ -63,11 +63,11 @@ public class pelvis_calibration extends AppCompatActivity {
         y_axis_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    pelvis_calibration_y_dialog pelvis_calibration_y_dialog = new pelvis_calibration_y_dialog();
-                    pelvis_calibration_y_dialog.show(getSupportFragmentManager(),"pelvis_calibration_y_dialog");
-                    action_textview = (TextView) findViewById(R.id.action_textview);
-                    action_textview.setText(" Press Start to initiate");
-                    count = 2;
+                pelvis_calibration_y_dialog pelvis_calibration_y_dialog = new pelvis_calibration_y_dialog();
+                pelvis_calibration_y_dialog.show(getSupportFragmentManager(), "pelvis_calibration_y_dialog");
+                action_textview = (TextView) findViewById(R.id.action_textview);
+                action_textview.setText(" Press Start to initiate");
+                count = 2;
             }
         });
 
@@ -75,11 +75,11 @@ public class pelvis_calibration extends AppCompatActivity {
         x_axis_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    pelvis_calibration_x_dialog pelvis_calibration_x_dialog = new pelvis_calibration_x_dialog();
-                    pelvis_calibration_x_dialog.show(getSupportFragmentManager(), "pelvis_calibration_x_dialog");
-                    action_textview = (TextView) findViewById(R.id.action_textview);
-                    action_textview.setText(" Press Start to initiate ");
-                    count = 3;
+                pelvis_calibration_x_dialog pelvis_calibration_x_dialog = new pelvis_calibration_x_dialog();
+                pelvis_calibration_x_dialog.show(getSupportFragmentManager(), "pelvis_calibration_x_dialog");
+                action_textview = (TextView) findViewById(R.id.action_textview);
+                action_textview.setText(" Press Start to initiate ");
+                count = 3;
             }
         });
 
@@ -87,15 +87,13 @@ public class pelvis_calibration extends AppCompatActivity {
         start_measurement_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (count == 1){
+                if (count == 1) {
                     action_textview = (TextView) findViewById(R.id.action_textview);
                     action_textview.setText(" Measuring for Pelvis Z Axis");
-                }
-                else if (count == 2){
+                } else if (count == 2) {
                     action_textview = (TextView) findViewById(R.id.action_textview);
                     action_textview.setText(" Measuring for Pelvis Y Axis");
-                }
-                else if (count == 3) {
+                } else if (count == 3) {
                     action_textview = (TextView) findViewById(R.id.action_textview);
                     action_textview.setText(" Pelvis X Axis determined.");
                     CrossProduct();
@@ -116,15 +114,13 @@ public class pelvis_calibration extends AppCompatActivity {
                     read_data_1();
                     action_textview = (TextView) findViewById(R.id.axis_1);
                     action_textview.setText(axis1);
-                }
-                else if (count == 2) {
+                } else if (count == 2) {
                     action_textview = (TextView) findViewById(R.id.action_textview);
                     action_textview.setText(" Pelvis Y axis determined");
                     read_data_2();
                     action_textview = (TextView) findViewById(R.id.axis_2);
                     action_textview.setText(axis2);
-                }
-                else if (count == 3) {
+                } else if (count == 3) {
                     action_textview = (TextView) findViewById(R.id.action_textview);
                     action_textview.setText(" Pelvis X Axis determined");
                     R_IMU_Pelvis();
@@ -144,11 +140,11 @@ public class pelvis_calibration extends AppCompatActivity {
             }
         });
     }
+        public void openThigh_Calibration_Activity() {
+            Intent intent = new Intent(this, thigh_calibration.class);
+            startActivity(intent);
+        }
 
-    public void openThigh_Calibration_Activity(){
-        Intent intent2 = new Intent(this, thigh_calibration.class);
-        startActivity(intent2);
-    }
 
         public void read_data_1() {
             try {

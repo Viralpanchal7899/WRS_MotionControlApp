@@ -175,7 +175,7 @@ public class thigh_calibration extends AppCompatActivity {
         public void read_data_1R(){
             try {
                 AssetManager am = getAssets();
-                InputStream is = am.open("rotation_along_Xaxis.xls");
+                InputStream is = am.open("Xsens DOT_RT_Z.xls");
                 Workbook wb = Workbook.getWorkbook(is);
                 Sheet s = wb.getSheet(0);
 
@@ -344,8 +344,8 @@ public class thigh_calibration extends AppCompatActivity {
                 Matrix evectors = eigen.getV();
                 evectors.print(3,3);
                 Eigen_vectors_1 = evectors.getArray();
-                System.out.println("Eigen Vector: " + df.format(Eigen_vectors_1[0][eig_index_1_r]) + " i + " + df.format(Eigen_vectors_1[1][eig_index_1_r])+ " j + " +  df.format(Eigen_vectors_1[2][eig_index_1_r])+ "k ");
-                axis1r = "Vector 1: " + df.format(Eigen_vectors_1[0][eig_index_1_r]) + " i + " + df.format(Eigen_vectors_1[1][eig_index_1_r])+ " j + " +  df.format(Eigen_vectors_1[2][eig_index_1_r])+ "k ";
+                System.out.println("Eigen Vector R: " + df.format(Eigen_vectors_1[0][eig_index_1_r]) + " i + " + df.format(Eigen_vectors_1[1][eig_index_1_r])+ " j + " +  df.format(Eigen_vectors_1[2][eig_index_1_r])+ "k ");
+                axis1r = "Vector 1R: " + df.format(Eigen_vectors_1[0][eig_index_1_r]) + " i + " + df.format(Eigen_vectors_1[1][eig_index_1_r])+ " j + " +  df.format(Eigen_vectors_1[2][eig_index_1_r])+ "k ";
                 String c_matrix = "[ " + df.format(var_wx) + " " + df.format(cov_wx_wy) + " " + df.format(cov_wx_wz) +  "\n" + df.format(cov_wx_wy) + " " + df.format(var_wy) + " " + df.format(cov_wy_wz) + "\n" + df.format(cov_wx_wz) + " " + df.format(cov_wy_wz) + " " + df.format(var_wz) + " ]";
                 String done_command = "Axis 1 achieved";
 //                display1(done_command);
@@ -359,7 +359,7 @@ public class thigh_calibration extends AppCompatActivity {
     public void read_data_1L(){
         try {
             AssetManager am = getAssets();
-            InputStream is = am.open("rotation_along_Xaxis.xls");
+            InputStream is = am.open("Xsens DOT_LT_Z.xls");
             Workbook wb = Workbook.getWorkbook(is);
             Sheet s = wb.getSheet(0);
 
@@ -528,8 +528,8 @@ public class thigh_calibration extends AppCompatActivity {
             Matrix evectors = eigen.getV();
             evectors.print(3,3);
             Eigen_vectors_1 = evectors.getArray();
-            System.out.println("Eigen Vector: " + df.format(Eigen_vectors_1[0][eig_index_1_l]) + " i + " + df.format(Eigen_vectors_1[1][eig_index_1_l])+ " j + " +  df.format(Eigen_vectors_1[2][eig_index_1_l])+ "k ");
-            axis1l = "Vector 1: " + df.format(Eigen_vectors_1[0][eig_index_1_l]) + " i + " + df.format(Eigen_vectors_1[1][eig_index_1_l])+ " j + " +  df.format(Eigen_vectors_1[2][eig_index_1_l])+ "k ";
+            System.out.println("Eigen Vector L: " + df.format(Eigen_vectors_1[0][eig_index_1_l]) + " i + " + df.format(Eigen_vectors_1[1][eig_index_1_l])+ " j + " +  df.format(Eigen_vectors_1[2][eig_index_1_l])+ "k ");
+            axis1l = "Vector 1L: " + df.format(Eigen_vectors_1[0][eig_index_1_l]) + " i + " + df.format(Eigen_vectors_1[1][eig_index_1_l])+ " j + " +  df.format(Eigen_vectors_1[2][eig_index_1_l])+ "k ";
             String c_matrix = "[ " + df.format(var_wx) + " " + df.format(cov_wx_wy) + " " + df.format(cov_wx_wz) +  "\n" + df.format(cov_wx_wy) + " " + df.format(var_wy) + " " + df.format(cov_wy_wz) + "\n" + df.format(cov_wx_wz) + " " + df.format(cov_wy_wz) + " " + df.format(var_wz) + " ]";
             String done_command = "Axis 1 achieved";
 //                display1(done_command);
@@ -542,7 +542,7 @@ public class thigh_calibration extends AppCompatActivity {
     public void read_data_2r(){
         try{
             AssetManager am = getAssets();
-            InputStream is = am.open("rotation_along_Yaxis.xls");
+            InputStream is = am.open("Xsens DOT_RT_X.xls");
             Workbook wb = Workbook.getWorkbook(is);
             Sheet s = wb.getSheet(0);
 
@@ -709,7 +709,7 @@ public class thigh_calibration extends AppCompatActivity {
             Matrix evectors = eigen.getV();
             evectors.print(3,3);
             Eigen_vectors_2 = evectors.getArray();
-            System.out.println("Eigen Vector: " + df.format(Eigen_vectors_2[0][eig_index_2_r]) + " i + " + df.format(Eigen_vectors_2[1][eig_index_2_r])+ " j + " +  df.format(Eigen_vectors_2[2][eig_index_2_r])+ "k ");
+            System.out.println("Eigen Vector R: " + df.format(Eigen_vectors_2[0][eig_index_2_r]) + " i + " + df.format(Eigen_vectors_2[1][eig_index_2_r])+ " j + " +  df.format(Eigen_vectors_2[2][eig_index_2_r])+ "k ");
             axis2r = "Vector 2R: " + df.format(Eigen_vectors_2[0][eig_index_2_r]) + " i + " + df.format(Eigen_vectors_2[1][eig_index_2_r])+ " j + " +  df.format(Eigen_vectors_2[2][eig_index_2_r])+ "k ";
             String c_matrix = "[ " + df.format(var_wx) + " " + df.format(cov_wx_wy) + " " + df.format(cov_wx_wz) +  "\n" + df.format(cov_wx_wy) + " " + df.format(var_wy) + " " + df.format(cov_wy_wz) + "\n" + df.format(cov_wx_wz) + " " + df.format(cov_wy_wz) + " " + df.format(var_wz) + " ]";
             String done_command = "Axis 2R achieved";
@@ -724,7 +724,7 @@ public class thigh_calibration extends AppCompatActivity {
     public void read_data_2l(){
         try{
             AssetManager am = getAssets();
-            InputStream is = am.open("rotation_along_Yaxis.xls");
+            InputStream is = am.open("Xsens DOT_LT_X.xls");
             Workbook wb = Workbook.getWorkbook(is);
             Sheet s = wb.getSheet(0);
 
@@ -891,7 +891,7 @@ public class thigh_calibration extends AppCompatActivity {
             Matrix evectors = eigen.getV();
             evectors.print(3,3);
             Eigen_vectors_2 = evectors.getArray();
-            System.out.println("Eigen Vector: " + df.format(Eigen_vectors_2[0][eig_index_2_l]) + " i + " + df.format(Eigen_vectors_2[1][eig_index_2_l])+ " j + " +  df.format(Eigen_vectors_2[2][eig_index_2_l])+ "k ");
+            System.out.println("Eigen Vector L: " + df.format(Eigen_vectors_2[0][eig_index_2_l]) + " i + " + df.format(Eigen_vectors_2[1][eig_index_2_l])+ " j + " +  df.format(Eigen_vectors_2[2][eig_index_2_l])+ "k ");
             axis2l = "Vector 2L: " + df.format(Eigen_vectors_2[0][eig_index_2_l]) + " i + " + df.format(Eigen_vectors_2[1][eig_index_2_l])+ " j + " +  df.format(Eigen_vectors_2[2][eig_index_2_l])+ "k ";
             String c_matrix = "[ " + df.format(var_wx) + " " + df.format(cov_wx_wy) + " " + df.format(cov_wx_wz) +  "\n" + df.format(cov_wx_wy) + " " + df.format(var_wy) + " " + df.format(cov_wy_wz) + "\n" + df.format(cov_wx_wz) + " " + df.format(cov_wy_wz) + " " + df.format(var_wz) + " ]";
             String done_command = "Axis 2L achieved";
@@ -908,8 +908,8 @@ public class thigh_calibration extends AppCompatActivity {
         cross_P_j = (Eigen_vectors_1[2][eig_index_1_r]*Eigen_vectors_2[0][eig_index_2_r] - Eigen_vectors_1[0][eig_index_1_r]*Eigen_vectors_2[2][eig_index_2_r]);
         cross_P_z = (Eigen_vectors_1[0][eig_index_1_r]*Eigen_vectors_2[1][eig_index_2_r] - Eigen_vectors_1[1][eig_index_1_r]*Eigen_vectors_2[0][eig_index_2_r]);
         final DecimalFormat df = new DecimalFormat("0.0000");
-        System.out.println("Vector 3: " + df.format(cross_P_i) + " i + " + df.format(cross_P_j) + " j + " + df.format(cross_P_z) + " z ");
-        axis3r = "Vector 3: " + df.format(cross_P_i) + " i + " + df.format(cross_P_j) + " j + " + df.format(cross_P_z) + " z ";
+        System.out.println("Vector 3R: " + df.format(cross_P_i) + " i + " + df.format(cross_P_j) + " j + " + df.format(cross_P_z) + " z ");
+        axis3r = "Vector 3R: " + df.format(cross_P_i) + " i + " + df.format(cross_P_j) + " j + " + df.format(cross_P_z) + " z ";
 //        display6(axis3);
     }
 
@@ -918,8 +918,8 @@ public class thigh_calibration extends AppCompatActivity {
         cross_P_j = (Eigen_vectors_1[2][eig_index_1_l]*Eigen_vectors_2[0][eig_index_2_l] - Eigen_vectors_1[0][eig_index_1_l]*Eigen_vectors_2[2][eig_index_2_l]);
         cross_P_z = (Eigen_vectors_1[0][eig_index_1_l]*Eigen_vectors_2[1][eig_index_2_l] - Eigen_vectors_1[1][eig_index_1_l]*Eigen_vectors_2[0][eig_index_2_l]);
         final DecimalFormat df = new DecimalFormat("0.0000");
-        System.out.println("Vector 3: " + df.format(cross_P_i) + " i + " + df.format(cross_P_j) + " j + " + df.format(cross_P_z) + " z ");
-        axis3l = "Vector 3: " + df.format(cross_P_i) + " i + " + df.format(cross_P_j) + " j + " + df.format(cross_P_z) + " z ";
+        System.out.println("Vector 3L: " + df.format(cross_P_i) + " i + " + df.format(cross_P_j) + " j + " + df.format(cross_P_z) + " z ");
+        axis3l = "Vector 3L: " + df.format(cross_P_i) + " i + " + df.format(cross_P_j) + " j + " + df.format(cross_P_z) + " z ";
 //        display6(axis3);
     }
 

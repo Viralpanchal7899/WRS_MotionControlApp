@@ -149,7 +149,7 @@ public class pelvis_calibration extends AppCompatActivity {
         public void read_data_1() {
             try {
                 AssetManager am = getAssets();
-                InputStream is = am.open("rotation_along_Xaxis.xls");
+                InputStream is = am.open("Xsens DOT_Pelvis_Z.xls");
                 Workbook wb = Workbook.getWorkbook(is);
                 Sheet s = wb.getSheet(0);
 
@@ -333,7 +333,7 @@ public class pelvis_calibration extends AppCompatActivity {
         public void read_data_2(){
             try{
                 AssetManager am = getAssets();
-                InputStream is = am.open("rotation_along_Yaxis.xls");
+                InputStream is = am.open("Xsens DOT_Pelvis_Y.xls");
                 Workbook wb = Workbook.getWorkbook(is);
                 Sheet s = wb.getSheet(0);
 

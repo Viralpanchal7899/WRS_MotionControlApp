@@ -30,8 +30,8 @@ public class pelvis_calibration extends AppCompatActivity {
     private Button thigh_calibration_btn;
     private static double [][] Eigen_vectors_1;
     private static double [][] Eigen_vectors_2;
-    private int eig_index_1;
-    private int eig_index_2;
+    private static int eig_index_1;
+    private static int eig_index_2;
     private static double cross_P_i;
     private static double cross_P_j;
     private static double cross_P_z;
@@ -325,9 +325,23 @@ public class pelvis_calibration extends AppCompatActivity {
 //                display1(done_command);
 //                display2(c_matrix);
 //                display4(axis1);
+
+//                Intent transfer_pelvis_z = new Intent(this, global_vectors.class);
+//                transfer_pelvis_z.putExtra("pelvis_z", axis1);
+////                transfer_pelvis_z.putExtra("pelvis_z_matrix", evectors);
+//                startActivity(transfer_pelvis_z);
+
             } catch (Exception e){
 
             }
+        }
+
+        public static int send_pelvis_eig_index_z(){
+            return eig_index_1;
+        }
+
+        public static double[][] send_pelvis_z_vector(){
+            return Eigen_vectors_1;
         }
 
         public void read_data_2(){

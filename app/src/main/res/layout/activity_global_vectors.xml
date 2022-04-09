@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".thigh_calibration">
+    tools:context=".global_vectors">
 
     <TextView
-        android:id="@+id/thigh_calibration_textview"
+        android:id="@+id/global_vectors_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Thigh Calibration"
+        android:text="Global Vectors"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="#000"
@@ -25,53 +25,43 @@
         android:id="@+id/z_axis_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="15dp"
-        android:text="Z"
-        android:textAlignment="center"
-        android:textColor="#fff"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/thigh_calibration_textview" />
-
-    <Button
-        android:id="@+id/xr_axis_btn"
-        android:layout_width="78dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:text="XR"
-        android:textAlignment="center"
-        android:textColor="#fff"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/z_axis_btn"
-        app:layout_constraintTop_toBottomOf="@+id/thigh_calibration_textview" />
-
-    <Button
-        android:id="@+id/xl_axis_btn"
-        android:layout_width="82dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="10dp"
-        android:text="XL"
-        android:textAlignment="center"
-        android:textColor="#fff"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/y_axis_btn"
-        app:layout_constraintTop_toBottomOf="@+id/thigh_calibration_textview" />
-
-    <Button
-        android:id="@+id/y_axis_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="22dp"
         android:text="Y"
         android:textAlignment="center"
         android:textColor="#fff"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/thigh_calibration_textview" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/global_vectors_textview" />
+
+<!--    <Button-->
+<!--        android:id="@+id/x_axis_btn"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="39dp"-->
+<!--        android:layout_marginTop="22dp"-->
+<!--        android:layout_marginEnd="40dp"-->
+<!--        android:text="X"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textColor="#fff"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/y_axis_btn"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/z_axis_btn"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/global_vectors_textview" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/y_axis_btn"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="22dp"-->
+<!--        android:layout_marginEnd="25dp"-->
+<!--        android:text="Y"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textColor="#fff"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/global_vectors_textview"-->
+<!--        />-->
 
     <TextView
         android:id="@+id/action_textview"
@@ -85,6 +75,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/z_axis_btn" />
+
     <Button
         android:id="@+id/start_measurement_btn"
         android:layout_width="wrap_content"
@@ -112,7 +103,7 @@
         app:layout_constraintTop_toBottomOf="@+id/action_textview" />
 
     <TextView
-        android:id="@+id/axis_1R"
+        android:id="@+id/axis_global_pelvis_Y"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
@@ -124,7 +115,7 @@
         app:layout_constraintTop_toBottomOf="@+id/start_measurement_btn" />
 
     <TextView
-        android:id="@+id/axis_1L"
+        android:id="@+id/axis_global_RT_Y"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
@@ -133,92 +124,53 @@
         android:textColor="#000"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/axis_1R" />
+        app:layout_constraintTop_toBottomOf="@+id/axis_global_pelvis_Y" />
 
     <TextView
-        android:id="@+id/axis_2R"
+        android:id="@+id/axis_global_LT_Y"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
         android:text=""
+        android:layout_marginStart="25dp"
         android:layout_marginTop="15dp"
         android:textColor="#000"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/axis_1L" />
+        app:layout_constraintTop_toBottomOf="@+id/axis_global_RT_Y" />
 
     <TextView
-        android:id="@+id/axis_2L"
+        android:id="@+id/axis_global_pelvis_z"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text=""
         android:layout_marginStart="25dp"
         android:layout_marginTop="15dp"
-        android:text=""
         android:textColor="#000"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/axis_2R" />
+        app:layout_constraintTop_toBottomOf="@+id/axis_global_LT_Y" />
 
     <TextView
-        android:id="@+id/axis_3R"
+        android:id="@+id/axis_global_RT_z"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text=""
         android:layout_marginStart="25dp"
         android:layout_marginTop="15dp"
-        android:text=""
         android:textColor="#000"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/axis_2L" />
+        app:layout_constraintTop_toBottomOf="@+id/axis_global_pelvis_z" />
 
     <TextView
-        android:id="@+id/axis_3L"
+        android:id="@+id/axis_global_LT_z"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text=""
         android:layout_marginStart="25dp"
         android:layout_marginTop="15dp"
-        android:text=""
         android:textColor="#000"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/axis_3R" />
-
-    <TextView
-        android:id="@+id/r_imu_thigh_R"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="15dp"
-        android:text=""
-        android:textColor="#000"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/axis_3L" />
-
-    <TextView
-        android:id="@+id/r_imu_thigh_L"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="15dp"
-        android:text=""
-        android:textColor="#000"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/r_imu_thigh_R" />
-
-    <Button
-        android:id="@+id/global_vectors_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="15dp"
-        android:text="Global Vectors"
-        android:textColor="#fff"
-        android:textSize="25sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/r_imu_thigh_L"
-        android:visibility="invisible"/>
-
-
+        app:layout_constraintTop_toBottomOf="@+id/axis_global_RT_z" />
 </androidx.constraintlayout.widget.ConstraintLayout>

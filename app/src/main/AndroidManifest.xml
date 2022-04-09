@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MotionControlCalibration">
         <activity
+            android:name=".global_vectors"
+            android:exported="false" />
+        <activity
             android:name=".thigh_calibration"
             android:exported="false" />
         <activity

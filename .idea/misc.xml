@@ -3,9 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/My files/Work/WRS LAB/Volunteer project/MotionControlCalibration/app/src/main/res/layout/activity_global_vectors.xml" value="0.176" />
         <entry key="..\:/My files/Work/WRS LAB/Volunteer project/MotionControlCalibration/app/src/main/res/layout/activity_main.xml" value="0.264" />
-        <entry key="..\:/My files/Work/WRS LAB/Volunteer project/MotionControlCalibration/app/src/main/res/layout/activity_pelvis_calibration.xml" value="0.264" />
-        <entry key="..\:/My files/Work/WRS LAB/Volunteer project/MotionControlCalibration/app/src/main/res/layout/activity_thigh_calibration.xml" value="0.264" />
+        <entry key="..\:/My files/Work/WRS LAB/Volunteer project/MotionControlCalibration/app/src/main/res/layout/activity_pelvis_calibration.xml" value="0.1" />
+        <entry key="..\:/My files/Work/WRS LAB/Volunteer project/MotionControlCalibration/app/src/main/res/layout/activity_thigh_calibration.xml" value="0.2" />
       </map>
     </option>
   </component>

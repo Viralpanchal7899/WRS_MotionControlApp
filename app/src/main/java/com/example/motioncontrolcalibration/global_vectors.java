@@ -128,7 +128,7 @@ public class global_vectors extends AppCompatActivity{
     public void read_data_Gpelvis_y(){
         try {
             AssetManager am = getAssets();
-            InputStream is = am.open("Xsens DOT_RT_Z.xls");
+            InputStream is = am.open("Xsens DOT_Gpelvis_Y.xls");
             Workbook wb = Workbook.getWorkbook(is);
             Sheet s = wb.getSheet(0);
 
@@ -312,7 +312,7 @@ public class global_vectors extends AppCompatActivity{
     public void read_data_GRT_y() {
         try {
             AssetManager am = getAssets();
-            InputStream is = am.open("Xsens DOT_RT_Z.xls");
+            InputStream is = am.open("Xsens DOT_GRT_Y.xls");
             Workbook wb = Workbook.getWorkbook(is);
             Sheet s = wb.getSheet(0);
 
@@ -496,7 +496,7 @@ public class global_vectors extends AppCompatActivity{
     public void read_data_GLT_y(){
         try {
             AssetManager am = getAssets();
-            InputStream is = am.open("Xsens DOT_RT_Z.xls");
+            InputStream is = am.open("Xsens DOT_GLT_Y.xls");
             Workbook wb = Workbook.getWorkbook(is);
             Sheet s = wb.getSheet(0);
 

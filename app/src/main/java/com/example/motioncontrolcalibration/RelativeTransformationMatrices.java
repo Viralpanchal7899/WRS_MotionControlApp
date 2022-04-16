@@ -14,6 +14,12 @@ import jxl.Workbook;
 
 public class RelativeTransformationMatrices extends AppCompatActivity {
 
+    private static double [][] Rx;
+    private static double [][] Ry;
+    private static double [][] Rz;
+    private static double [][] RzRy;
+    private static double [][] RzRyRx;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,19 +61,71 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
 
             ArrayList<Double> sin_ang_x;
             ArrayList<Double> cos_ang_x;
+            ArrayList<Double> sin_ang_y;
+            ArrayList<Double> cos_ang_y;
+            ArrayList<Double> sin_ang_z;
+            ArrayList<Double> cos_ang_z;
 
             sin_ang_x = new ArrayList<Double>();
             cos_ang_x = new ArrayList<Double>();
+            sin_ang_y = new ArrayList<Double>();
+            cos_ang_y = new ArrayList<Double>();
+            sin_ang_z = new ArrayList<Double>();
+            cos_ang_z = new ArrayList<Double>();
 
             double sin_x = 0;
             double cos_x = 0;
+            double sin_y = 0;
+            double cos_y = 0;
+            double sin_z = 0;
+            double cos_z = 0;
 
             for (int i = 0; i < ang_x.size(); i++) {
+                //// FOR X
                 sin_x = Math.sin(Math.toRadians(ang_x.get(i)));
                 sin_ang_x.add(sin_x);
                 cos_x = Math.cos(Math.toRadians(ang_x.get(i)));
                 cos_ang_x.add(cos_x);
-                cos_ang_x.add(cos_x);
+                //// FOR Y
+                sin_y = Math.sin(Math.toRadians(ang_y.get(i)));
+                sin_ang_y.add(sin_y);
+                cos_y = Math.cos(Math.toRadians(ang_y.get(i)));
+                cos_ang_y.add(cos_y);
+                //// FOR Z
+                sin_z = Math.sin(Math.toRadians(ang_z.get(i)));
+                sin_ang_z.add(sin_z);
+                cos_z = Math.cos(Math.toRadians(ang_z.get(i)));
+                cos_ang_z.add(cos_z);
+            }
+
+            for (int j = 0; j < sin_ang_x.size(); j++) {
+                Rx = new double[][]{{1, 0, 0}, {0, cos_ang_x.get(j), (-1 * sin_ang_x.get(j))}, {0, sin_ang_x.get(j), cos_ang_x.get(j)}};
+                Ry = new double[][]{{cos_ang_y.get(j),0,sin_ang_y.get(j)},{0,1,0},{(-1*sin_ang_y.get(j)),0,cos_ang_y.get(j)}};
+                Rz = new double[][]{{cos_ang_z.get(j),(-1*sin_ang_z.get(j)),0},{sin_ang_z.get(j),cos_ang_z.get(j),0},{0,0,1}};
+
+                /// FOR RX*RY
+                for (int i = 0; i < 3; i++) {
+                        RzRy[i][0] = (Rz[i][0] * Ry[0][i]) + (Rz[i][1] * Ry[1][i]) + (Rz[i][2] * Ry[2][i]);
+                        RzRy[i][1] = (Rz[i][0] * Ry[i][1]) + (Rz[i][1] * Ry[1][1]) + (Rz[i][2] * Ry[2][2]);
+                        RzRy[i][2] = (Rz[i][0] * Ry[0][2]) + (Rz[i][1] * Ry[1][2]) + (Rz[i][2] * Ry[2][2]);
+
+                    for (int k = 0; k < 3; k++) {
+                        System.out.print(RzRy[i][k] + " ");
+                    }
+                    System.out.print("\n");
+                }
+
+                /// FOR RX*RY*RZ
+                for (int i = 0; i < 3; i++) {
+                    RzRyRx[i][0] = (RzRy[i][0] * Rx[0][i]) + (RzRy[i][1] * Rx[1][i]) + (RzRy[i][2] * Rx[2][i]);
+                    RzRyRx[i][1] = (RzRy[i][0] * Rx[i][1]) + (RzRy[i][1] * Rx[1][1]) + (RzRy[i][2] * Rx[2][2]);
+                    RzRyRx[i][2] = (RzRy[i][0] * Rx[0][2]) + (RzRy[i][1] * Rx[1][2]) + (RzRy[i][2] * Rx[2][2]);
+
+                    for (int k = 0; k < 3; k++) {
+                        System.out.print(RzRyRx[i][k] + " ");
+                    }
+                    System.out.print("\n");
+                }
 
 
             }

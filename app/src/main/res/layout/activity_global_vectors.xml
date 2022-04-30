@@ -63,6 +63,19 @@
 <!--        app:layout_constraintTop_toBottomOf="@+id/global_vectors_textview"-->
 <!--        />-->
 
+    <Button
+        android:id="@+id/RTM_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="288dp"
+        android:layout_marginTop="20dp"
+        android:text="NEXT"
+        android:textAlignment="center"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/global_vectors_textview" />
+
     <TextView
         android:id="@+id/action_textview"
         android:layout_width="match_parent"

@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -14,6 +17,8 @@ import jxl.Workbook;
 
 public class RelativeTransformationMatrices extends AppCompatActivity {
 
+    private TextView action_textview;
+    private Button start_btn;
     private static double [][] Rx;
     private static double [][] Ry;
     private static double [][] Rz;
@@ -24,15 +29,26 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relative_transformation_matrices);
+
+        start_btn = (Button) findViewById(R.id.start_measurement_btn);
+        start_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                read_data_orientation_z();
+                action_textview = (TextView)findViewById(R.id.RZRYRX_matrix);
+                //action_textview.setText();///////////////////////////////////////NEED Attention
+                System.out.println("Relative Transformartion Matrix here ");
+            }
+        });
     }
 
     public void read_data_orientation_z(){
         try{
             AssetManager am = getAssets();
-            InputStream is = am.open("Xsens Dot_Pelvis_Orientation.xls");
+            InputStream is = am.open("Xsens DOT_Pelvis_Orientation.xls");
             Workbook wb = Workbook.getWorkbook(is);
             Sheet s = wb.getSheet(0);
-
+            System.out.println("Data read");
             ArrayList<Double> ang_x;
             ArrayList<Double> ang_y;
             ArrayList<Double> ang_z;
@@ -46,15 +62,15 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
             String z_read = "";
 
             for (int i = 11; i < s.getRows(); i++) {
-                Cell x = s.getCell(3,i);
+                Cell x = s.getCell(2,i);
                 x_read = x.getContents();
                 ang_x.add(Double.parseDouble(x_read));
 
-                Cell y = s.getCell(4,i);
+                Cell y = s.getCell(3,i);
                 y_read = y.getContents();
                 ang_y.add(Double.parseDouble(y_read));
 
-                Cell z = s.getCell(5,i);
+                Cell z = s.getCell(4,i);
                 z_read = z.getContents();
                 ang_z.add(Double.parseDouble(z_read));
             }
@@ -79,6 +95,7 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
             double cos_y = 0;
             double sin_z = 0;
             double cos_z = 0;
+
 
             for (int i = 0; i < ang_x.size(); i++) {
                 //// FOR X
@@ -122,14 +139,13 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
                     RzRyRx[i][2] = (RzRy[i][0] * Rx[0][2]) + (RzRy[i][1] * Rx[1][2]) + (RzRy[i][2] * Rx[2][2]);
 
                     for (int k = 0; k < 3; k++) {
-                        System.out.print(RzRyRx[i][k] + " ");
+                        System.out.print(RzRyRx[j][k] + " ");
                     }
                     System.out.print("\n");
                 }
-
-
             }
-        }catch (Exception e){
+
+        } catch (Exception e){
 
         }
     }

@@ -24,6 +24,7 @@ public class global_vectors extends AppCompatActivity{
     private TextView action_textview;
     private Button y_axis_btn;
     private Button start_measurement_btn;
+    private Button RelativeTransformationMatrix_btn;
     private int eig_index_pelvis_y;
     private int eig_index_grt_y;
     private int eig_index_glt_y;
@@ -123,8 +124,18 @@ public class global_vectors extends AppCompatActivity{
                     }
             }
         });
+        RelativeTransformationMatrix_btn = (Button) findViewById(R.id.RTM_activity);
+        RelativeTransformationMatrix_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openRelativeTransformationMatrix_Activity();
+            }
+        });
     }
-
+    public void openRelativeTransformationMatrix_Activity(){
+        Intent intent = new Intent(this,RelativeTransformationMatrices.class);
+        startActivity(intent);
+    }
     public void read_data_Gpelvis_y(){
         try {
             AssetManager am = getAssets();

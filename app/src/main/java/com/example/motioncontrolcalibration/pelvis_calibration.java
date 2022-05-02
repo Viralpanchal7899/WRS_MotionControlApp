@@ -39,6 +39,7 @@ public class pelvis_calibration extends AppCompatActivity {
     private static String axis2;
     private static String axis3;
     private static String R_IMU_Pelvis;
+    private static double [][] r_imu_pelvis;
     private int count = 1;
 
 
@@ -540,6 +541,20 @@ public class pelvis_calibration extends AppCompatActivity {
     public void R_IMU_Pelvis(){
         final DecimalFormat df = new DecimalFormat("0.0000");
         R_IMU_Pelvis = "R = [ " + df.format(Eigen_vectors_1[0][eig_index_1]) + "   " + df.format(Eigen_vectors_1[1][eig_index_1]) + "   " + df.format(Eigen_vectors_1[2][eig_index_1]) + " \n " + "     " +  df.format(Eigen_vectors_1[2][eig_index_1]) + "   " + df.format(Eigen_vectors_2[1][eig_index_2]) + "   " + df.format(Eigen_vectors_2[2][eig_index_2]) + " \n " + "     " + df.format(cross_P_i) + "   " + df.format(cross_P_j) + "   " + df.format(cross_P_z) + " ]";
+        r_imu_pelvis = new double[][]{{Double.valueOf(df.format(Eigen_vectors_1[0][eig_index_1])),Double.valueOf(df.format(Eigen_vectors_1[1][eig_index_1])),Double.valueOf(df.format(Eigen_vectors_1[2][eig_index_1]))},{Double.valueOf(df.format(Eigen_vectors_1[2][eig_index_1])),Double.valueOf(df.format(Eigen_vectors_2[1][eig_index_2])),Double.valueOf(df.format(Eigen_vectors_2[2][eig_index_2]))},{Double.valueOf(df.format(cross_P_i)),Double.valueOf(df.format(cross_P_j)),Double.valueOf(df.format(cross_P_z))}};
+
+//        final DecimalFormat df = new DecimalFormat("0.0000");
+        System.out.println("R_IMU_PELVIS:");
+        for (int i = 0; i < r_imu_pelvis.length; i++) {
+            for (int k = 0; k < r_imu_pelvis[i].length; k++) {
+                System.out.print(df.format(r_imu_pelvis[i][k]) + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static double[][] send_r_imu_pelvis(){
+        return r_imu_pelvis;
     }
 
     public void openDialog(){

@@ -25,6 +25,7 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
     private static double [][] Rz;
     private static double [][] RzRy;
     private static double [][] RzRyRx;
+    private static double [][] r_imu_pelvis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,17 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
 
             }
         });
+    }
+    public void get_r_imu_pelvis(){
+        r_imu_pelvis = pelvis_calibration.send_r_imu_pelvis();
+        final DecimalFormat df = new DecimalFormat("0.0000");
+        System.out.println("R_IMU_PELVIS:");
+        for (int i = 0; i < r_imu_pelvis.length; i++) {
+            for (int k = 0; k < r_imu_pelvis[i].length; k++) {
+                System.out.print(df.format(r_imu_pelvis[i][k]) + " ");
+            }
+            System.out.println();
+        }
     }
 
     public void read_data_orientation_z(){
@@ -117,6 +129,7 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
                 cos_ang_z.add(cos_z);
             }
 
+            get_r_imu_pelvis();
 
             for (int j = 0; j < sin_ang_x.size(); j++) {
                 Rx = new double[][]{{1, 0, 0}, {0, cos_ang_x.get(j), (-1 * sin_ang_x.get(j))}, {0, sin_ang_x.get(j), cos_ang_x.get(j)}};
@@ -188,6 +201,8 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
                     }
                     System.out.println();
                 }
+
+
 //                for (int i = 0; i < 3; i++) {
 //                    RzRyRx[i][0] = (RzRy[i][0] * Rx[0][i]) + (RzRy[i][1] * Rx[1][i]) + (RzRy[i][2] * Rx[2][i]);
 //                    RzRyRx[i][1] = (RzRy[i][0] * Rx[i][1]) + (RzRy[i][1] * Rx[1][1]) + (RzRy[i][2] * Rx[2][2]);

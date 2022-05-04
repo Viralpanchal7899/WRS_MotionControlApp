@@ -67,6 +67,8 @@ public class global_vectors extends AppCompatActivity{
     private static String LT_global_i_vec;
     private static String rt_global_i_vec;
     private static String lt_global_i_vec;
+    private static String R_IMU_Pelvis_Global;
+    private static double [][] r_imu_pelvis_global;
     private int count = 1;
     private boolean count_status = false;
 
@@ -703,6 +705,16 @@ public class global_vectors extends AppCompatActivity{
         final DecimalFormat df = new DecimalFormat("0.0000");
         System.out.println("Vector 3: " + df.format(cross_P_i_Gpelvis) + " i + " + df.format(cross_P_j_Gpelvis) + " j + " + df.format(cross_P_z_Gpelvis) + " z ");
         pelvis_global_i_vec = "Vector 3: " + df.format(cross_P_i_Gpelvis) + " i + " + df.format(cross_P_j_Gpelvis) + " j + " + df.format(cross_P_z_Gpelvis) + " z ";
+    }
+
+    public void R_IMU_Pelvis_Global(){
+        final DecimalFormat df = new DecimalFormat("0.0000");
+        R_IMU_Pelvis_Global = "R = [ " + df.format(-1* Eigen_vectors_pelvis_y[0][eig_index_pelvis_y]) + " " + df.format(-1 * Eigen_vectors_pelvis_y[1][eig_index_pelvis_y])+ " " +  df.format(-1 * Eigen_vectors_pelvis_y[2][eig_index_pelvis_y])+ " \n " + " " + df.format(Eigen_vectors_pelvis_z[0][eig_index_pelvis_z]) + " " + df.format(Eigen_vectors_pelvis_z[1][eig_index_pelvis_z])+ " " +  df.format(Eigen_vectors_pelvis_z[2][eig_index_pelvis_z])+ " \n " + " " + df.format(cross_P_i_Gpelvis) + " " + df.format(cross_P_j_Gpelvis) + " " + df.format(cross_P_z_Gpelvis) + " ]";
+        r_imu_pelvis_global = new double[][]{{Double.valueOf(df.format(-1* Eigen_vectors_pelvis_y[0][eig_index_pelvis_y])), Double.valueOf(df.format(-1 * Eigen_vectors_pelvis_y[1][eig_index_pelvis_y])),Double.valueOf(df.format(-1 * Eigen_vectors_pelvis_y[2][eig_index_pelvis_y]))},{Double.valueOf(df.format(Eigen_vectors_pelvis_z[0][eig_index_pelvis_z])),Double.valueOf(df.format(Eigen_vectors_pelvis_z[1][eig_index_pelvis_z])),Double.valueOf(df.format(Eigen_vectors_pelvis_z[2][eig_index_pelvis_z]))},{Double.valueOf(df.format(cross_P_i_Gpelvis)),Double.valueOf(df.format(cross_P_j_Gpelvis)),Double.valueOf(df.format(cross_P_z_Gpelvis))}};
+    }
+
+    public static double[][] send_r_imu_pelvis_global(){
+        return r_imu_pelvis_global;
     }
 
     public void get_RT_z(){

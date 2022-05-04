@@ -25,7 +25,11 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
     private static double [][] Rz;
     private static double [][] RzRy;
     private static double [][] RzRyRx;
+    private static double [][] A;
+    private static double [][] B;
     private static double [][] r_imu_pelvis;
+    private static double [][] r_imu_pelvis_global;
+    private static double [][] r_imu_pelvis_global_transpose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,19 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
         for (int i = 0; i < r_imu_pelvis.length; i++) {
             for (int k = 0; k < r_imu_pelvis[i].length; k++) {
                 System.out.print(df.format(r_imu_pelvis[i][k]) + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public void get_r_imu_pelvis_global(){
+        r_imu_pelvis_global = global_vectors.send_r_imu_pelvis_global();
+        final DecimalFormat df = new DecimalFormat("0.0000");
+        System.out.println("R_IMU_Pelvis_Global_transpose:");
+        for (int i = 0; i < r_imu_pelvis_global.length; i++) {
+            for (int j = 0; j < r_imu_pelvis_global[i].length; j++) {
+                //r_imu_pelvis_global_transpose[j][i] = r_imu_pelvis_global[i][j];
+                System.out.print(df.format(r_imu_pelvis_global[j][i] + " "));
             }
             System.out.println();
         }
@@ -130,6 +147,7 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
             }
 
             get_r_imu_pelvis();
+            get_r_imu_pelvis_global();
 
             for (int j = 0; j < sin_ang_x.size(); j++) {
                 Rx = new double[][]{{1, 0, 0}, {0, cos_ang_x.get(j), (-1 * sin_ang_x.get(j))}, {0, sin_ang_x.get(j), cos_ang_x.get(j)}};
@@ -195,9 +213,39 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
                     for (int k = 0; k < 3; k++) {
                         RzRyRx[i][k] = 0;
                         for (int l = 0; l < 3; l++) {
-                            RzRyRx[i][k] +=RzRy[i][l] * Ry[l][j];
+                            RzRyRx[i][k] +=RzRy[i][l] * Rx[l][j];
                         }
                         System.out.print(df.format(RzRyRx[i][k]) + " ");
+                    }
+                    System.out.println();
+                }
+
+                // Multiplying R_imu_pelvis_global_transpose * RZRYRX * R_imu_pelvis
+                // A = R_IMU_Pelvis_global_transpose * RZRYRX
+                // B = A * R_IMU_Pelvis
+                // B = R_global_pelvis
+                double[][] A = new double[3][3];
+                System.out.println("R_IMU_PELVIS_GLOBAL_TRANSPOSE * RzRyRx: ");
+                for (int i = 0; i < 3; i++) {
+                    for (int k = 0; k < 3; k++) {
+                        A[i][k] = 0;
+                        for (int l = 0; l < 3; l++) {
+                            A[i][k] +=r_imu_pelvis_global_transpose[i][l] * RzRyRx[l][j];
+                        }
+                        System.out.print(df.format(A[i][k]) + " ");
+                    }
+                    System.out.println();
+                }
+
+                double[][] B = new double[3][3];
+                System.out.println("A * R_IMU_PELVIS_GLOBAL: ");
+                for (int i = 0; i < 3; i++) {
+                    for (int k = 0; k < 3; k++) {
+                        B[i][k] = 0;
+                        for (int l = 0; l < 3; l++) {
+                            B[i][k] +=A[i][l] * r_imu_pelvis_global[l][j];
+                        }
+                        System.out.print(df.format(B[i][k]) + " ");
                     }
                     System.out.println();
                 }

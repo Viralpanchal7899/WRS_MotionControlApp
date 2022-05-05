@@ -68,7 +68,11 @@ public class global_vectors extends AppCompatActivity{
     private static String rt_global_i_vec;
     private static String lt_global_i_vec;
     private static String R_IMU_Pelvis_Global;
+    private static String R_IMU_RT_Global;
+    private static String R_IMU_LT_Global;
     private static double [][] r_imu_pelvis_global;
+    private static double [][] r_imu_rt_global;
+    private static double [][] r_imu_lt_global;
     private int count = 1;
     private boolean count_status = false;
 
@@ -707,16 +711,6 @@ public class global_vectors extends AppCompatActivity{
         pelvis_global_i_vec = "Vector 3: " + df.format(cross_P_i_Gpelvis) + " i + " + df.format(cross_P_j_Gpelvis) + " j + " + df.format(cross_P_z_Gpelvis) + " z ";
     }
 
-    public void R_IMU_Pelvis_Global(){
-        final DecimalFormat df = new DecimalFormat("0.0000");
-        R_IMU_Pelvis_Global = "R = [ " + df.format(-1* Eigen_vectors_pelvis_y[0][eig_index_pelvis_y]) + " " + df.format(-1 * Eigen_vectors_pelvis_y[1][eig_index_pelvis_y])+ " " +  df.format(-1 * Eigen_vectors_pelvis_y[2][eig_index_pelvis_y])+ " \n " + " " + df.format(Eigen_vectors_pelvis_z[0][eig_index_pelvis_z]) + " " + df.format(Eigen_vectors_pelvis_z[1][eig_index_pelvis_z])+ " " +  df.format(Eigen_vectors_pelvis_z[2][eig_index_pelvis_z])+ " \n " + " " + df.format(cross_P_i_Gpelvis) + " " + df.format(cross_P_j_Gpelvis) + " " + df.format(cross_P_z_Gpelvis) + " ]";
-        r_imu_pelvis_global = new double[][]{{Double.valueOf(df.format(-1* Eigen_vectors_pelvis_y[0][eig_index_pelvis_y])), Double.valueOf(df.format(-1 * Eigen_vectors_pelvis_y[1][eig_index_pelvis_y])),Double.valueOf(df.format(-1 * Eigen_vectors_pelvis_y[2][eig_index_pelvis_y]))},{Double.valueOf(df.format(Eigen_vectors_pelvis_z[0][eig_index_pelvis_z])),Double.valueOf(df.format(Eigen_vectors_pelvis_z[1][eig_index_pelvis_z])),Double.valueOf(df.format(Eigen_vectors_pelvis_z[2][eig_index_pelvis_z]))},{Double.valueOf(df.format(cross_P_i_Gpelvis)),Double.valueOf(df.format(cross_P_j_Gpelvis)),Double.valueOf(df.format(cross_P_z_Gpelvis))}};
-    }
-
-    public static double[][] send_r_imu_pelvis_global(){
-        return r_imu_pelvis_global;
-    }
-
     public void get_RT_z(){
         final DecimalFormat df = new DecimalFormat("0.0000");
         eig_index_RT_z = thigh_calibration.send_RT_eig_index_z();
@@ -778,6 +772,35 @@ public class global_vectors extends AppCompatActivity{
         LT_global_k_vec = "GLT_k_vec: " + df.format(cross_P_i_GLT_K) + " i + " + df.format(cross_P_j_GLT_K) + " j + " + df.format(cross_P_z_GLT_K) + " z ";
     }
 
+    public void R_IMU_Pelvis_Global(){
+        final DecimalFormat df = new DecimalFormat("0.0000");
+        R_IMU_Pelvis_Global = "R = [ " + df.format(-1* Eigen_vectors_pelvis_y[0][eig_index_pelvis_y]) + " " + df.format(-1 * Eigen_vectors_pelvis_y[1][eig_index_pelvis_y])+ " " +  df.format(-1 * Eigen_vectors_pelvis_y[2][eig_index_pelvis_y])+ " \n " + " " + df.format(Eigen_vectors_pelvis_z[0][eig_index_pelvis_z]) + " " + df.format(Eigen_vectors_pelvis_z[1][eig_index_pelvis_z])+ " " +  df.format(Eigen_vectors_pelvis_z[2][eig_index_pelvis_z])+ " \n " + " " + df.format(cross_P_i_Gpelvis) + " " + df.format(cross_P_j_Gpelvis) + " " + df.format(cross_P_z_Gpelvis) + " ]";
+        r_imu_pelvis_global = new double[][]{{Double.valueOf(df.format(-1* Eigen_vectors_pelvis_y[0][eig_index_pelvis_y])), Double.valueOf(df.format(-1 * Eigen_vectors_pelvis_y[1][eig_index_pelvis_y])),Double.valueOf(df.format(-1 * Eigen_vectors_pelvis_y[2][eig_index_pelvis_y]))},{Double.valueOf(df.format(Eigen_vectors_pelvis_z[0][eig_index_pelvis_z])),Double.valueOf(df.format(Eigen_vectors_pelvis_z[1][eig_index_pelvis_z])),Double.valueOf(df.format(Eigen_vectors_pelvis_z[2][eig_index_pelvis_z]))},{Double.valueOf(df.format(cross_P_i_Gpelvis)),Double.valueOf(df.format(cross_P_j_Gpelvis)),Double.valueOf(df.format(cross_P_z_Gpelvis))}};
+    }
+
+    public static double[][] send_r_imu_pelvis_global(){
+        return r_imu_pelvis_global;
+    }
+
+    public void R_IMU_RT_Global(){
+        final DecimalFormat df = new DecimalFormat("0.0000");
+        R_IMU_RT_Global = " R = [ " + df.format(-1 * Eigen_vectors_grt_y[0][eig_index_grt_y]) + " " + df.format(-1 * Eigen_vectors_grt_y[1][eig_index_grt_y])+ " " +  df.format(-1 * Eigen_vectors_grt_y[2][eig_index_grt_y])+ " \n " + " " + df.format(Eigen_vectors_RT_z[0][eig_index_RT_z]) + " " + df.format(Eigen_vectors_RT_z[1][eig_index_RT_z])+ " " +  df.format(Eigen_vectors_RT_z[2][eig_index_RT_z])+ " \n " + " " + df.format(cross_P_i_GRT) + " " + df.format(cross_P_j_GRT) + " " + df.format(cross_P_z_GRT) + " ] ";
+        r_imu_rt_global = new double[][]{{Double.valueOf(df.format(-1 * Eigen_vectors_grt_y[0][eig_index_grt_y])),Double.valueOf(df.format(-1 * Eigen_vectors_grt_y[1][eig_index_grt_y])),Double.valueOf(df.format(-1 * Eigen_vectors_grt_y[2][eig_index_grt_y]))},{Double.valueOf(df.format(Eigen_vectors_RT_z[0][eig_index_RT_z])),Double.valueOf(df.format(Eigen_vectors_RT_z[1][eig_index_RT_z])),Double.valueOf(df.format(Eigen_vectors_RT_z[2][eig_index_RT_z]))},{Double.valueOf(df.format(cross_P_i_GRT)),Double.valueOf(df.format(cross_P_j_GRT)),Double.valueOf(df.format(cross_P_z_GRT))}};
+    }
+
+    public static double[][] send_r_imu_rt_global(){
+        return r_imu_rt_global;
+    }
+
+    public void R_IMU_LT_Global(){
+        final DecimalFormat df = new DecimalFormat("0.0000");
+        R_IMU_LT_Global = " R = [ " + df.format(-1 * Eigen_vectors_glt_y[0][eig_index_glt_y]) + " " + df.format(-1 * Eigen_vectors_glt_y[1][eig_index_glt_y])+ " " +  df.format(-1 * Eigen_vectors_glt_y[2][eig_index_glt_y])+ " \n " + " " + df.format(Eigen_vectors_LT_z[0][eig_index_LT_z]) + " " + df.format(Eigen_vectors_LT_z[1][eig_index_LT_z])+ " " +  df.format(Eigen_vectors_LT_z[2][eig_index_LT_z])+ " \n " + " " + df.format(cross_P_i_GLT) + " " + df.format(cross_P_j_GLT) + " " + df.format(cross_P_z_GLT) + " ] ";
+        r_imu_lt_global = new double[][]{{Double.valueOf(df.format(-1 * Eigen_vectors_glt_y[0][eig_index_glt_y])),Double.valueOf(df.format(-1 * Eigen_vectors_glt_y[1][eig_index_glt_y])),Double.valueOf(df.format(-1 * Eigen_vectors_glt_y[2][eig_index_glt_y]))},{Double.valueOf(df.format(Eigen_vectors_LT_z[0][eig_index_LT_z])),Double.valueOf(df.format(Eigen_vectors_LT_z[1][eig_index_LT_z])),Double.valueOf(df.format(Eigen_vectors_LT_z[2][eig_index_LT_z]))},{Double.valueOf(df.format(cross_P_i_GLT)),Double.valueOf(df.format(cross_P_j_GLT)),Double.valueOf(df.format(cross_P_z_GLT))}};
+    }
+
+    public static double[][] send_r_imu_lt_global(){
+        return r_imu_lt_global;
+    }
 
     public void counter(){
         try {

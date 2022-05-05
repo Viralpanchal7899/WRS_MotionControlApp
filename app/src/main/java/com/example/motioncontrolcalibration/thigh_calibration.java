@@ -33,6 +33,8 @@ public class thigh_calibration extends AppCompatActivity {
     private static double [][] Eigen_vectors_1_L;
     private static double [][] Eigen_vectors_2_R;
     private static double [][] Eigen_vectors_2_L;
+    private static double [][] r_imu_RT;
+    private static double [][] r_imu_LT;
     private static int eig_index_1_r;
     private static int eig_index_1_l;
     private int eig_index_2_r;
@@ -962,10 +964,20 @@ public class thigh_calibration extends AppCompatActivity {
     public void R_IMU_Pelvis_r(){
         final DecimalFormat df = new DecimalFormat("0.0000");
         R_IMU_Pelvis_r = "R_r = [ " + df.format(Eigen_vectors_1_R[0][eig_index_1_r]) + "   " + df.format(Eigen_vectors_1_R[1][eig_index_1_r]) + "   " + df.format(Eigen_vectors_1_R[2][eig_index_1_r]) + " \n " + "     " +  df.format(Eigen_vectors_1_R[2][eig_index_1_r]) + "   " + df.format(Eigen_vectors_2_R[1][eig_index_2_r]) + "   " + df.format(Eigen_vectors_2_R[2][eig_index_2_r]) + " \n " + "     " + df.format(cross_P_i) + "   " + df.format(cross_P_j) + "   " + df.format(cross_P_z) + " ]";
+        r_imu_RT = new double[][]{{Double.valueOf(df.format(Eigen_vectors_1_R[0][eig_index_1_r])),Double.valueOf(df.format(Eigen_vectors_1_R[1][eig_index_1_r])),Double.valueOf(df.format(Eigen_vectors_1_R[2][eig_index_1_r]))},{Double.valueOf(df.format(Eigen_vectors_1_R[2][eig_index_1_r])),Double.valueOf(df.format(Eigen_vectors_2_R[1][eig_index_2_r])),Double.valueOf(df.format(Eigen_vectors_2_R[2][eig_index_2_r]))},{Double.valueOf(df.format(cross_P_i)),Double.valueOf(df.format(cross_P_j)),Double.valueOf(df.format(cross_P_z))}};
+    }
+
+    public static double[][] send_r_imu_RT(){
+        return r_imu_RT;
     }
 
     public void R_IMU_Pelvis_l(){
         final DecimalFormat df = new DecimalFormat("0.0000");
         R_IMU_Pelvis_l = "R_l = [ " + df.format(Eigen_vectors_1_L[0][eig_index_1_l]) + "   " + df.format(Eigen_vectors_1_L[1][eig_index_1_l]) + "   " + df.format(Eigen_vectors_1_L[2][eig_index_1_l]) + " \n " + "     " +  df.format(Eigen_vectors_1_L[2][eig_index_1_l]) + "   " + df.format(Eigen_vectors_2_L[1][eig_index_2_l]) + "   " + df.format(Eigen_vectors_2_L[2][eig_index_2_l]) + " \n " + "     " + df.format(cross_P_i) + "   " + df.format(cross_P_j) + "   " + df.format(cross_P_z) + " ]";
+        r_imu_LT = new double[][]{{Double.valueOf(df.format(Eigen_vectors_1_L[0][eig_index_1_l])),Double.valueOf(df.format(Eigen_vectors_1_L[1][eig_index_1_l])),Double.valueOf(df.format(Eigen_vectors_1_L[2][eig_index_1_l]))},{Double.valueOf(df.format(Eigen_vectors_1_L[2][eig_index_1_l])),Double.valueOf(df.format(Eigen_vectors_2_L[1][eig_index_2_l])),Double.valueOf(df.format(Eigen_vectors_2_L[2][eig_index_2_l]))},{Double.valueOf(df.format(cross_P_i)),Double.valueOf(df.format(cross_P_j)),Double.valueOf(df.format(cross_P_z))}};
+    }
+
+    public static double[][] send_r_imu_LT(){
+        return r_imu_LT;
     }
 }

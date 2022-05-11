@@ -54,7 +54,7 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relative_transformation_matrices);
 
-        start_btn = (Button) findViewById(R.id.start_measurement_btn);
+        start_btn = (Button) findViewById(R.id.start_angle_btn);
         start_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,8 +63,13 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
                 read_RT_data_orientation_z();
                 read_LT_data_orientation_z();
                 R_PELVIS_RT();
-                action_textview = (TextView) findViewById(R.id.RZRYRX_matrix);
-                //action_textview.setText();///////////////////////////////////////NEED Attention
+                print_pelvis_rt_angle();
+                R_PELVIS_LT();
+                print_pelvis_lt_angle();
+                action_textview = (TextView) findViewById(R.id.pelvis_RT_angles);
+                action_textview.setText("Pelvis - RT angles");
+                action_textview = (TextView) findViewById(R.id.pelvis_LT_angles);
+                action_textview.setText("Pelvis - LT angles");
 
             }
         });
@@ -78,6 +83,12 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
                 read_LT_data_orientation_z();
                 R_PELVIS_RT();
                 print_pelvis_rt_angle();
+                R_PELVIS_LT();
+                print_pelvis_lt_angle();
+                action_textview = (TextView) findViewById(R.id.pelvis_RT_angles);
+                action_textview.setText("Pelvis - RT angles");
+                action_textview = (TextView) findViewById(R.id.pelvis_LT_angles);
+                action_textview.setText("Pelvis - LT angles");
 
             }
         });
@@ -809,6 +820,13 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
         System.out.println("Theta_X for Pelvis_RT = " + pelvis_rt_theta_x);
         System.out.println("Theta_Y for Pelvis_RT = " + pelvis_rt_theta_y);
         System.out.println("Theta_Z for Pelvis_RT = " + pelvis_rt_theta_z);
+
+        action_textview = (TextView) findViewById(R.id.pelvis_RT_theta_x);
+        action_textview.setText(Double.toString(pelvis_rt_theta_x));
+        action_textview = (TextView) findViewById(R.id.pelvis_RT_theta_y);
+        action_textview.setText(Double.toString(pelvis_rt_theta_y));
+        action_textview = (TextView) findViewById(R.id.pelvis_RT_theta_z);
+        action_textview.setText(Double.toString(pelvis_rt_theta_z));
     }
 
     double[][] R_PELVIS_LT = new double[3][3];
@@ -841,5 +859,13 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
         System.out.println("Theta_X for Pelvis_LT = " + pelvis_lt_theta_x);
         System.out.println("Theta_Y for Pelvis_LT = " + pelvis_lt_theta_y);
         System.out.println("Theta_Z for Pelvis_LT = " + pelvis_lt_theta_z);
+
+        action_textview = (TextView) findViewById(R.id.pelvis_LT_theta_x);
+        action_textview.setText(Double.toString(pelvis_lt_theta_x));
+        action_textview = (TextView) findViewById(R.id.pelvis_LT_theta_y);
+        action_textview.setText(Double.toString(pelvis_lt_theta_y));
+        action_textview = (TextView) findViewById(R.id.pelvis_LT_theta_z);
+        action_textview.setText(Double.toString(pelvis_lt_theta_z));
+
     }
 }

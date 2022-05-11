@@ -37,9 +37,16 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
     private static double[][] r_imu_lt_global;
     private static double[][] r_pelvis_global;
     private static double[][] r_rt_global;
+    private static double[][] r_lt_global;
     private static double[][] r_imu_pelvis_global_transpose;
     private static double[][] r_imu_rt_global_transpose;
     private static double[][] r_imu_lt_global_transpose;
+    double pelvis_rt_theta_x;
+    double pelvis_rt_theta_y;
+    double pelvis_rt_theta_z;
+    double pelvis_lt_theta_x;
+    double pelvis_lt_theta_y;
+    double pelvis_lt_theta_z;
 
 
     @Override
@@ -70,6 +77,8 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
                 read_RT_data_orientation_z();
                 read_LT_data_orientation_z();
                 R_PELVIS_RT();
+                print_pelvis_rt_angle();
+
             }
         });
     }
@@ -747,6 +756,8 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
                 System.out.println();
             }
 
+            r_lt_global = B;
+
 
 //                for (int i = 0; i < 3; i++) {
 //                    RzRyRx[i][0] = (RzRy[i][0] * Rx[0][i]) + (RzRy[i][1] * Rx[1][i]) + (RzRy[i][2] * Rx[2][i]);
@@ -766,6 +777,7 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
 
         }
     }
+    double[][] R_PELVIS_RT = new double[3][3];
     public void R_PELVIS_RT(){
         // getting the transpose of r_pelvis_global first
         for (int i = 0; i < r_pelvis_global.length; i++) {
@@ -775,7 +787,7 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
         }
 
         final DecimalFormat df = new DecimalFormat("0.0000");
-        double[][] R_PELVIS_RT = new double[3][3];
+//        double[][] R_PELVIS_RT = new double[3][3];
         System.out.println("r_pelvis_global_transpose * r_rt_global: ");
         for (int i = 0; i < 3; i++) {
             for (int k = 0; k < 3; k++) {
@@ -783,9 +795,51 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
                 for (int l = 0; l < 3; l++) {
                     R_PELVIS_RT[i][k] += r_pelvis_global_transpose[i][l] * r_rt_global[l][k];
                 }
-                System.out.print(df.format(B[i][k]) + " ");
+                System.out.print(df.format(R_PELVIS_RT[i][k]) + " ");
             }
             System.out.println();
         }
+    }
+
+    public void print_pelvis_rt_angle(){
+        pelvis_rt_theta_x = Math.toDegrees(Math.atan2(R_PELVIS_RT[3][2],R_PELVIS_RT[3][3]));
+        pelvis_rt_theta_y = Math.toDegrees(Math.atan2((-1*R_PELVIS_RT[3][1]),Math.sqrt(Math.pow(R_PELVIS_RT[3][2],2)+Math.pow(R_PELVIS_RT[3][3],2))));
+        pelvis_rt_theta_z = Math.toDegrees(Math.atan2(R_PELVIS_RT[2][1],R_PELVIS_RT[1][1]));
+
+        System.out.println("Theta_X for Pelvis_RT = " + pelvis_rt_theta_x);
+        System.out.println("Theta_Y for Pelvis_RT = " + pelvis_rt_theta_y);
+        System.out.println("Theta_Z for Pelvis_RT = " + pelvis_rt_theta_z);
+    }
+
+    double[][] R_PELVIS_LT = new double[3][3];
+    public void R_PELVIS_LT(){
+        // getting the transpose of r_pelvis_global first
+        for (int i = 0; i < r_pelvis_global.length; i++) {
+            for (int j = 0; j < r_pelvis_global[i].length; j++) {
+                r_pelvis_global_transpose[i][j] = r_pelvis_global[j][i];
+            }
+        }
+
+        final DecimalFormat df = new DecimalFormat("0.0000");
+        System.out.println("r_pelvis_global_transpose * r_lt_global: ");
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                R_PELVIS_LT[i][j] = 0;
+                for (int k = 0; k < 3; k++) {
+                    R_PELVIS_LT[i][j] += r_pelvis_global_transpose[i][k] * r_lt_global[k][j];
+                }
+                System.out.print(df.format(R_PELVIS_LT[i][j]) + " ");
+                }
+            System.out.println();
+        }
+    }
+    public void print_pelvis_lt_angle(){
+        pelvis_lt_theta_x = Math.toDegrees(Math.atan2(R_PELVIS_LT[3][2],R_PELVIS_LT[3][3]));
+        pelvis_lt_theta_y = Math.toDegrees(Math.atan2((-1*R_PELVIS_LT[3][1]),Math.sqrt(Math.pow(R_PELVIS_LT[3][2],2)+Math.pow(R_PELVIS_LT[3][3],2))));
+        pelvis_lt_theta_z = Math.toDegrees(Math.atan2(R_PELVIS_LT[2][1],R_PELVIS_LT[1][1]));
+
+        System.out.println("Theta_X for Pelvis_LT = " + pelvis_lt_theta_x);
+        System.out.println("Theta_Y for Pelvis_LT = " + pelvis_lt_theta_y);
+        System.out.println("Theta_Z for Pelvis_LT = " + pelvis_lt_theta_z);
     }
 }

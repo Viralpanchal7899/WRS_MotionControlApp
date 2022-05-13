@@ -41,6 +41,8 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
     private static double[][] r_imu_pelvis_global_transpose;
     private static double[][] r_imu_rt_global_transpose;
     private static double[][] r_imu_lt_global_transpose;
+    private static double[][] R_PELVIS_RT;
+    private static double[][] R_PELVIS_LT;
     double pelvis_rt_theta_x;
     double pelvis_rt_theta_y;
     double pelvis_rt_theta_z;
@@ -63,9 +65,9 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
                 read_RT_data_orientation_z();
                 read_LT_data_orientation_z();
                 R_PELVIS_RT();
-//                print_pelvis_rt_angle();
-//                R_PELVIS_LT();
-//                print_pelvis_lt_angle();
+                print_pelvis_rt_angle();
+                R_PELVIS_LT();
+                print_pelvis_lt_angle();
                 action_textview = (TextView) findViewById(R.id.pelvis_RT_angles);
                 action_textview.setText("Pelvis - RT angles");
                 action_textview = (TextView) findViewById(R.id.pelvis_LT_angles);
@@ -372,6 +374,7 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
                 System.out.println();
             }
 
+            r_pelvis_global = new double[3][3];
             r_pelvis_global = B;
 
 //                for (int i = 0; i < 3; i++) {
@@ -792,9 +795,12 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
 
         }
     }
-    double[][] R_PELVIS_RT = new double[3][3];
+
+
     public void R_PELVIS_RT(){
         // getting the transpose of r_pelvis_global first
+        R_PELVIS_RT = new double[3][3];
+        r_pelvis_global_transpose = new double[3][3];
         for (int i = 0; i < r_pelvis_global.length; i++) {
             for (int j = 0; j < r_pelvis_global[i].length; j++) {
                 r_pelvis_global_transpose[i][j] = r_pelvis_global[j][i];
@@ -817,25 +823,27 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
     }
 
     public void print_pelvis_rt_angle(){
-        pelvis_rt_theta_x = Math.toDegrees(Math.atan2(R_PELVIS_RT[3][2],R_PELVIS_RT[3][3]));
-        pelvis_rt_theta_y = Math.toDegrees(Math.atan2((-1*R_PELVIS_RT[3][1]),Math.sqrt(Math.pow(R_PELVIS_RT[3][2],2)+Math.pow(R_PELVIS_RT[3][3],2))));
-        pelvis_rt_theta_z = Math.toDegrees(Math.atan2(R_PELVIS_RT[2][1],R_PELVIS_RT[1][1]));
+        pelvis_rt_theta_x = Math.toDegrees(Math.atan2(R_PELVIS_RT[2][1],R_PELVIS_RT[2][2]));
+        pelvis_rt_theta_y = Math.toDegrees(Math.atan2((-1*R_PELVIS_RT[2][0]),Math.sqrt(Math.pow(R_PELVIS_RT[2][1],2)+Math.pow(R_PELVIS_RT[2][2],2))));
+        pelvis_rt_theta_z = Math.toDegrees(Math.atan2(R_PELVIS_RT[1][0],R_PELVIS_RT[0][0]));
 
-        System.out.println("Theta_X for Pelvis_RT = " + pelvis_rt_theta_x);
-        System.out.println("Theta_Y for Pelvis_RT = " + pelvis_rt_theta_y);
-        System.out.println("Theta_Z for Pelvis_RT = " + pelvis_rt_theta_z);
+        final DecimalFormat df = new DecimalFormat("0.00");
+        System.out.println("Theta_X for Pelvis_RT = " + df.format(pelvis_rt_theta_x));
+        System.out.println("Theta_Y for Pelvis_RT = " + df.format(pelvis_rt_theta_y));
+        System.out.println("Theta_Z for Pelvis_RT = " + df.format(pelvis_rt_theta_z));
 
         action_textview = (TextView) findViewById(R.id.pelvis_RT_theta_x);
-        action_textview.setText(Double.toString(pelvis_rt_theta_x));
+        action_textview.setText(Double.toString(Double.valueOf(df.format(pelvis_rt_theta_x))));
         action_textview = (TextView) findViewById(R.id.pelvis_RT_theta_y);
-        action_textview.setText(Double.toString(pelvis_rt_theta_y));
+        action_textview.setText(Double.toString(Double.valueOf(df.format(pelvis_rt_theta_y))));
         action_textview = (TextView) findViewById(R.id.pelvis_RT_theta_z);
-        action_textview.setText(Double.toString(pelvis_rt_theta_z));
+        action_textview.setText(Double.toString(Double.valueOf(df.format(pelvis_rt_theta_z))));
     }
 
-    double[][] R_PELVIS_LT = new double[3][3];
+
     public void R_PELVIS_LT(){
         // getting the transpose of r_pelvis_global first
+        R_PELVIS_LT = new double[3][3];
         for (int i = 0; i < r_pelvis_global.length; i++) {
             for (int j = 0; j < r_pelvis_global[i].length; j++) {
                 r_pelvis_global_transpose[i][j] = r_pelvis_global[j][i];
@@ -856,20 +864,21 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
         }
     }
     public void print_pelvis_lt_angle(){
-        pelvis_lt_theta_x = Math.toDegrees(Math.atan2(R_PELVIS_LT[3][2],R_PELVIS_LT[3][3]));
-        pelvis_lt_theta_y = Math.toDegrees(Math.atan2((-1*R_PELVIS_LT[3][1]),Math.sqrt(Math.pow(R_PELVIS_LT[3][2],2)+Math.pow(R_PELVIS_LT[3][3],2))));
-        pelvis_lt_theta_z = Math.toDegrees(Math.atan2(R_PELVIS_LT[2][1],R_PELVIS_LT[1][1]));
+        pelvis_lt_theta_x = Math.toDegrees(Math.atan2(R_PELVIS_LT[2][1],R_PELVIS_LT[2][2]));
+        pelvis_lt_theta_y = Math.toDegrees(Math.atan2((-1*R_PELVIS_LT[2][0]),Math.sqrt(Math.pow(R_PELVIS_LT[2][1],2)+Math.pow(R_PELVIS_LT[2][2],2))));
+        pelvis_lt_theta_z = Math.toDegrees(Math.atan2(R_PELVIS_LT[1][0],R_PELVIS_LT[0][0]));
 
-        System.out.println("Theta_X for Pelvis_LT = " + pelvis_lt_theta_x);
-        System.out.println("Theta_Y for Pelvis_LT = " + pelvis_lt_theta_y);
-        System.out.println("Theta_Z for Pelvis_LT = " + pelvis_lt_theta_z);
+        final DecimalFormat df = new DecimalFormat("0.00");
+        System.out.println("Theta_X for Pelvis_LT = " + df.format(pelvis_lt_theta_x));
+        System.out.println("Theta_Y for Pelvis_LT = " + df.format(pelvis_lt_theta_y));
+        System.out.println("Theta_Z for Pelvis_LT = " + df.format(pelvis_lt_theta_z));
 
         action_textview = (TextView) findViewById(R.id.pelvis_LT_theta_x);
-        action_textview.setText(Double.toString(pelvis_lt_theta_x));
+        action_textview.setText(Double.toString(Double.valueOf(df.format(pelvis_lt_theta_x))));
         action_textview = (TextView) findViewById(R.id.pelvis_LT_theta_y);
-        action_textview.setText(Double.toString(pelvis_lt_theta_y));
+        action_textview.setText(Double.toString(Double.valueOf(df.format(pelvis_lt_theta_y))));
         action_textview = (TextView) findViewById(R.id.pelvis_LT_theta_z);
-        action_textview.setText(Double.toString(pelvis_lt_theta_z));
+        action_textview.setText(Double.toString(Double.valueOf(df.format(pelvis_lt_theta_z))));
 
     }
 }

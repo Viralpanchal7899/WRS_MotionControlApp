@@ -127,6 +127,9 @@ public class global_vectors extends AppCompatActivity{
                         global_LT_k_vec();
                         action_textview = (TextView) findViewById(R.id.axis_global_LT_z);
                         action_textview.setText(LT_global_k_vec);
+                        R_IMU_Pelvis_Global();
+                        R_IMU_RT_Global();
+                        R_IMU_LT_Global();
                     }
             }
         });

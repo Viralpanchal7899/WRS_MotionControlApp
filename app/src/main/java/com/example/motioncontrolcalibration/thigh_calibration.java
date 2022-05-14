@@ -196,7 +196,7 @@ public class thigh_calibration extends AppCompatActivity {
         public void read_data_1R(){
             try {
                 AssetManager am = getAssets();
-                InputStream is = am.open("Xsens DOT_RT_Z.xls");
+                InputStream is = am.open("Xsens DOT_RT_Z_20220514.xls");
                 Workbook wb = Workbook.getWorkbook(is);
                 Sheet s = wb.getSheet(0);
 
@@ -388,7 +388,7 @@ public class thigh_calibration extends AppCompatActivity {
     public void read_data_1L(){
         try {
             AssetManager am = getAssets();
-            InputStream is = am.open("Xsens DOT_LT_Z.xls");
+            InputStream is = am.open("Xsens DOT_LT_Z_20220514.xls");
             Workbook wb = Workbook.getWorkbook(is);
             Sheet s = wb.getSheet(0);
 
@@ -580,7 +580,7 @@ public class thigh_calibration extends AppCompatActivity {
     public void read_data_2r(){
         try{
             AssetManager am = getAssets();
-            InputStream is = am.open("Xsens DOT_RT_X.xls");
+            InputStream is = am.open("Xsens DOT_RT_X_20220514.xls");
             Workbook wb = Workbook.getWorkbook(is);
             Sheet s = wb.getSheet(0);
 
@@ -762,7 +762,7 @@ public class thigh_calibration extends AppCompatActivity {
     public void read_data_2l(){
         try{
             AssetManager am = getAssets();
-            InputStream is = am.open("Xsens DOT_LT_X.xls");
+            InputStream is = am.open("Xsens DOT_LT_X_20220514.xls");
             Workbook wb = Workbook.getWorkbook(is);
             Sheet s = wb.getSheet(0);
 

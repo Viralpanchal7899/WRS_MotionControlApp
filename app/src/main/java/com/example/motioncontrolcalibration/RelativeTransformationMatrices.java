@@ -198,7 +198,7 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
     public void read_pelvis_data_orientation_z() {
         try {
             AssetManager am = getAssets();
-            InputStream is = am.open("Xsens DOT_Pelvis_Orientation.xls");
+            InputStream is = am.open("Xsens DOT_Pelvis_Orientation_20220514.xls");
             Workbook wb = Workbook.getWorkbook(is);
             Sheet s = wb.getSheet(0);
 
@@ -399,7 +399,7 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
     public void read_RT_data_orientation_z() {
         try {
             AssetManager am = getAssets();
-            InputStream is = am.open("Xsens DOT_Pelvis_Orientation.xls"); // NEEDS RT DATA INPUT HERE
+            InputStream is = am.open("Xsens DOT_RT_Orientation_20220514.xls");
             Workbook wb = Workbook.getWorkbook(is);
             Sheet s = wb.getSheet(0);
 
@@ -598,7 +598,7 @@ public class RelativeTransformationMatrices extends AppCompatActivity {
     public void read_LT_data_orientation_z() {
         try {
             AssetManager am = getAssets();
-            InputStream is = am.open("Xsens DOT_Pelvis_Orientation.xls"); /// NEEDS LT DATA HERE
+            InputStream is = am.open("Xsens DOT_LT_Orientation_20220514.xls");
             Workbook wb = Workbook.getWorkbook(is);
             Sheet s = wb.getSheet(0);
 
